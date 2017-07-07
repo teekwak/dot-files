@@ -13,8 +13,11 @@ export PS1='`if [[ $? -eq 0 ]]; then echo "\[$GREEN\]âœ”"; else echo "\[$RED\]âœ
 cd /
 
 alias ls="ls -G"
+alias vscode="code"
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 export PATH="/usr/local/sbin:$PATH"
 export PATH="$(brew --prefix homebrew/php/php71)/bin:$PATH"
 eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)"
+export PATH=$PATH:$(go env GOPATH)/bin
+export GOPATH=$(go env GOPATH)
