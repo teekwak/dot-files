@@ -14,6 +14,7 @@ cd /
 
 alias ls="ls -G"
 alias vscode="code"
+alias chrome="open -a Google\ Chrome"
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 export PATH="/usr/local/sbin:$PATH"
