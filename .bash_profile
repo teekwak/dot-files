@@ -1,6 +1,7 @@
 # colors
 GREEN=$(tput setaf 2)
 RED=$(tput setaf 1)
+BOLD=$(tput bold)
 RESET=$(tput sgr 0)
 
 # get git branch name
@@ -9,7 +10,7 @@ parse_git_branch() {
 }
 
 # random crap :D
-export PS1='`if [[ $? -eq 0 ]]; then echo "\[$GREEN\]✔"; else echo "\[$RED\]✘"; fi;`\[$RESET\] \e[1m[\u] \w\[$GREEN\]`parse_git_branch`\[$RESET\] \e[1m➜ \e[0m '
+export PS1='`if [[ $? -eq 0 ]]; then echo "\[$GREEN\]✔"; else echo "\[$RED\]✘"; fi;`\[$RESET\] \[$BOLD\][\u] \w\[$GREEN\]`parse_git_branch`\[$RESET\] \[$BOLD\]➜ \[$RESET\] '
 cd /
 
 alias ls="ls -G"
@@ -23,4 +24,4 @@ eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)"
 
 # go
 export PATH=$PATH:$(go env GOPATH)/bin
-export GOPATH=$(go env GOPATH)
+export GOPATH=$(go env GOPATH):~/Desktop/golang
