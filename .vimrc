@@ -11,3 +11,6 @@ set hlsearch
 set ts=4 sw=4
 
 set backspace=indent,eol,start
+
+set autoindent
+
