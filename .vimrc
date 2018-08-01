@@ -1,16 +1,9 @@
-syntax enable
-
 set number
-set cursorline
-set incsearch
-set hlsearch
 set expandtab
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
-set backspace=indent,eol,start
-set autoindent
-set relativenumber
+set lazyredraw
 
 call plug#begin('~/.vim/plugged')
 Plug 'airblade/vim-gitgutter'
@@ -19,6 +12,7 @@ Plug 'morhetz/gruvbox'
 Plug 'mxw/vim-jsx'
 Plug 'pangloss/vim-javascript'
 Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'udalov/kotlin-vim'
 Plug 'vim-airline/vim-airline'
