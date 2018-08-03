@@ -1,13 +1,16 @@
+set t_Co=256
 set number
 set expandtab
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set lazyredraw
+set nowrap
 
 call plug#begin('~/.vim/plugged')
 Plug 'airblade/vim-gitgutter'
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+Plug 'junegunn/fzf.vim'
 Plug 'morhetz/gruvbox'
 Plug 'mxw/vim-jsx'
 Plug 'pangloss/vim-javascript'
@@ -41,12 +44,8 @@ set background=dark
 " automatically remove trailing whitespace
 autocmd BufWritePre * :%s/\s\+$//e
 
-" ctrlp
-let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
-if executable('ag')
-	let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-endif
-set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/build/*,*/node_modules/*
+" fzf
+nnoremap <C-p> :FZF<CR>
 
 " nerdtree
 let NERDTreeShowHidden=1
