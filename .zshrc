@@ -64,11 +64,6 @@ DEFAULT_USER="$USER"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
-  node
-  npm
-  pip
-  python
-  yarn
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -106,10 +101,7 @@ alias tml="tmux ls"
 alias tmn="tmux new -s"
 alias mm="make minimal"
 
-export FZF_DEFAULT_COMMAND='
-    (git ls-tree -r --name-only HEAD ||
-    find . -path "*/\.*" -prune -o -type f -print -o -type l -print |
-    sed s/^..//) 2> /dev/null'
+export FZF_DEFAULT_COMMAND='ag -l -g ""'
 
 export PATH="/usr/local/sbin:$PATH"
 export TERM="screen-256color"
