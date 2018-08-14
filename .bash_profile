@@ -5,10 +5,7 @@ RED=$(tput setaf 1)
 BOLD=$(tput bold)
 RESET=$(tput sgr 0)
 
-export FZF_DEFAULT_COMMAND='
-    (git ls-tree -r --name-only HEAD ||
-    find . -path "*/\.*" -prune -o -type f -print -o -type l -print |
-    sed s/^..//) 2> /dev/null'
+export FZF_DEFAULT_COMMAND='ag -l -g ""'
 
 parse_git_branch() {
     branchName=$(git symbolic-ref -q --short HEAD 2> /dev/null)
