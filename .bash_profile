@@ -5,24 +5,29 @@ RED=$(tput setaf 1)
 BOLD=$(tput bold)
 RESET=$(tput sgr 0)
 
-parse_git_branch() {
-	branchName=$(git symbolic-ref -q --short HEAD 2> /dev/null)
+export FZF_DEFAULT_COMMAND='
+    (git ls-tree -r --name-only HEAD ||
+    find . -path "*/\.*" -prune -o -type f -print -o -type l -print |
+    sed s/^..//) 2> /dev/null'
 
-	if [[ $branchName ]]; then
-		echo -e " \[$CYAN\][⭠ ${branchName}$(number_of_git_changes)]\[$RESET\]";
-	fi
+parse_git_branch() {
+    branchName=$(git symbolic-ref -q --short HEAD 2> /dev/null)
+
+    if [[ $branchName ]]; then
+        echo -e " \[$CYAN\][⭠ ${branchName}$(number_of_git_changes)]\[$RESET\]";
+    fi
 }
 
 number_of_git_changes() {
-	read additions deletions <<< $(git diff --numstat | awk '{additions += $1}{deletions += $2}END{print additions " " deletions}')
+    read additions deletions <<< $(git diff --numstat | awk '{additions += $1}{deletions += $2}END{print additions " " deletions}')
 
-	if [[ $additions > 0 && $deletions > 0 ]]; then
-		echo -e " [ \[$GREEN\]+${additions} | \[$RED\]-${deletions}\[$CYAN\] ]"
-	elif [[ $additions > 0 ]]; then
-		echo -e " [ \[$GREEN\]+${additions}\[$CYAN\] ]"
-	elif [[ $deletions > 0 ]]; then
-		echo -e " [ \[$RED\]-${deletions}\[$CYAN\] ]"
-	fi
+    if [[ $additions > 0 && $deletions > 0 ]]; then
+        echo -e " [ \[$GREEN\]+${additions} | \[$RED\]-${deletions}\[$CYAN\] ]"
+    elif [[ $additions > 0 ]]; then
+        echo -e " [ \[$GREEN\]+${additions}\[$CYAN\] ]"
+    elif [[ $deletions > 0 ]]; then
+        echo -e " [ \[$RED\]-${deletions}\[$CYAN\] ]"
+    fi
 }
 
 show_command_status() {
@@ -34,9 +39,9 @@ show_command_status() {
 }
 
 show_virtual_env() {
-	if [ -n "$VIRTUAL_ENV" ]; then
-		echo "($(basename $VIRTUAL_ENV)) "
-	fi
+    if [ -n "$VIRTUAL_ENV" ]; then
+        echo "($(basename $VIRTUAL_ENV)) "
+    fi
 }
 export -f show_virtual_env
 
@@ -54,25 +59,7 @@ custom_prompt_command() {
 
 PROMPT_COMMAND=custom_prompt_command
 
-
-# this activates/deactivates virtualenv automatically
-# this relies on virtualenv being named "venv"
-#cd() {
-#    builtin cd "$@"
-#    if [ -d "venv" ]; then
-#		if [ "$VIRTUAL_ENV" = "" ]; then
-#        	source venv/bin/activate
-#		fi
-#	else
-#		if [ "$VIRTUAL_ENV" != "" ]; then
-#			deactivate
-#		fi
-#    fi
-#}
-
 alias ls="ls -G"
-alias vscode="code"
-alias chrome="open -a Google\ Chrome"
 alias tma="tmux a -t"
 alias tml="tmux ls"
 alias tmn="tmux new -s"
@@ -88,13 +75,10 @@ eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)"
 export PATH=$PATH:$(go env GOPATH)/bin
 export GOPATH=$(go env GOPATH):~/Desktop/golang
 
-# direnv
-eval "$(direnv hook bash)"
-export DIRENV_LOG_FORMAT=
-
 # spark
-export SPARK_HOME=/usr/local/Cellar/apache-spark/2.0.1/libexec
-export PYTHONPATH=/usr/local/Cellar/apache-spark/2.0.1/libexec/python/:$PYTHONP$
+export SPARK_HOME=/usr/local/Cellar/apache-spark/2.3.1/libexec
+export PYTHONPATH=/usr/local/Cellar/apache-spark/2.3.1/libexec/python/:$PYTHONP$
+export PYSPARK_PYTHON=python3
 
 # dart
 export PATH="$PATH":"~/.pub-cache/bin"
