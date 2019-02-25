@@ -1,14 +1,36 @@
+export TERM="xterm-256color"
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/Kwak/.oh-my-zsh"
 
+if [[ ! -d $ZSH ]]; then
+    echo "Setting up zsh and vim..."
+
+    # Install oh-my-zsh and plugins
+    git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git $ZSH
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH/custom/plugins/zsh-syntax-highlighting
+    git clone https://github.com/bhilburn/powerlevel9k.git $ZSH/custom/themes/powerlevel9k
+
+    # Install vimplug and plugins
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    vim +PlugInstall +qall
+
+    echo "Finished setup"
+fi
+
+DEFAULT_USER="$USER"
+
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="agnoster"
-DEFAULT_USER="$USER"
+#ZSH_THEME="agnoster"
+ZSH_THEME="powerlevel9k/powerlevel9k"
+POWERLEVEL9K_MODE='nerdfont-complete'
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(virtualenv dir vcs status)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
+POWERLEVEL9K_VCS_GIT_HOOKS=(vcs-detect-changes git-untracked git-aheadbehind git-remotebranch)
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -34,7 +56,7 @@ DEFAULT_USER="$USER"
 # DISABLE_LS_COLORS="true"
 
 # Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
+DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
 # ENABLE_CORRECTION="true"
@@ -45,7 +67,7 @@ DEFAULT_USER="$USER"
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
 # much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
+DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
@@ -62,9 +84,7 @@ DEFAULT_USER="$USER"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(
-  git
-)
+plugins=(zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -96,16 +116,29 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias gs="git status"
+alias gcm="git commit -m"
+alias gco="git checkout"
+alias ga="git add"
+alias gaa="git add -A"
+alias gd="git diff"
+alias gdc="git diff --cached"
+
+alias tmux="tmux -2"
 alias tma="tmux a -t"
 alias tml="tmux ls"
 alias tmn="tmux new -s"
 alias mm="make minimal"
 
-export FZF_DEFAULT_COMMAND='ag -l -g ""'
+alias pip3_upgrade="pip3 list --outdated | tail -n +3 | cut -f 1 -d ' ' | xargs pip3 install --upgrade"
 
+# export FZF_DEFAULT_COMMAND='ag -l -g ""'
+# export FZF_DEFAULT_COMMAND='fd --type f --color=never'
+export FZF_DEFAULT_COMMAND="fd --type file --color=always"
+export FZF_DEFAULT_OPTS="--ansi -i"
+
+export PATH="/usr/local/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
-export TERM="screen-256color"
-export PATH="$(brew --prefix php@7.1)/bin:$PATH"
 eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)"
 
 # go
@@ -116,10 +149,9 @@ export GOPATH=$(go env GOPATH):~/Desktop/golang
 export SPARK_HOME=/usr/local/Cellar/apache-spark/2.3.1/libexec
 export PYTHONPATH=/usr/local/Cellar/apache-spark/2.3.1/libexec/python/:$PYTHONP$
 export PYSPARK_PYTHON=python3
+export PYSPARK_DRIVER_PYTHON=ipython
 
 # curl
 export PATH="/usr/local/opt/curl/bin:$PATH"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
