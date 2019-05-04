@@ -116,6 +116,11 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+function cd_to_git_root() {
+    cd $(git rev-parse --show-toplevel)
+}
+
 alias gs="git status"
 alias gcm="git commit -m"
 alias gco="git checkout"
@@ -123,6 +128,7 @@ alias ga="git add"
 alias gaa="git add -A"
 alias gd="git diff"
 alias gdc="git diff --cached"
+alias groot="cd_to_git_root"
 
 alias tmux="tmux -2"
 alias tma="tmux a -t"
@@ -132,8 +138,6 @@ alias mm="make minimal"
 
 alias pip3_upgrade="pip3 list --outdated | tail -n +3 | cut -f 1 -d ' ' | xargs pip3 install --upgrade"
 
-# export FZF_DEFAULT_COMMAND='ag -l -g ""'
-# export FZF_DEFAULT_COMMAND='fd --type f --color=never'
 export FZF_DEFAULT_COMMAND="fd --type file --color=always"
 export FZF_DEFAULT_OPTS="--ansi -i"
 
