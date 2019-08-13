@@ -3,7 +3,7 @@ export TERM="xterm-256color"
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/Kwak/.oh-my-zsh"
+export ZSH="/Users/$(whoami)/.oh-my-zsh"
 
 if [[ ! -d $ZSH ]]; then
     echo "Setting up zsh and vim..."
