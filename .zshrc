@@ -1,9 +1,16 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 export TERM="xterm-256color"
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/$(whoami)/.oh-my-zsh"
+export ZSH="/Users/$USER/.oh-my-zsh"
 
 if [[ ! -d $ZSH ]]; then
     echo "Setting up zsh and vim..."
@@ -22,22 +29,7 @@ fi
 
 DEFAULT_USER="$USER"
 
-# Set name of the theme to load. Optionally, if you set this to "random"
-# it'll load a random theme each time that oh-my-zsh is loaded.
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-#ZSH_THEME="agnoster"
-ZSH_THEME="powerlevel9k/powerlevel9k"
-POWERLEVEL9K_MODE='nerdfont-complete'
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(virtualenv dir vcs status)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
-POWERLEVEL9K_VCS_GIT_HOOKS=(vcs-detect-changes git-untracked git-aheadbehind git-remotebranch)
-
-# Set list of themes to load
-# Setting this variable when ZSH_THEME=random
-# cause zsh load theme from this variable instead of
-# looking in ~/.oh-my-zsh/themes/
-# An empty array have no effect
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -129,6 +121,7 @@ alias gaa="git add -A"
 alias gd="git diff"
 alias gdc="git diff --cached"
 alias groot="cd_to_git_root"
+alias gp="git pull origin master"
 
 alias tmux="tmux -2"
 alias tma="tmux a -t"
@@ -136,14 +129,12 @@ alias tml="tmux ls"
 alias tmn="tmux new -s"
 alias mm="make minimal"
 
-alias pip3_upgrade="pip3 list --outdated | tail -n +3 | cut -f 1 -d ' ' | xargs pip3 install --upgrade"
-
 export FZF_DEFAULT_COMMAND="fd --type file --color=always"
-export FZF_DEFAULT_OPTS="--ansi -i"
+export FZF_DEFAULT_OPTS='--ansi -i'
 
 export PATH="/usr/local/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
-eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)"
+eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
 
 # go
 export PATH=$PATH:$(go env GOPATH)/bin
@@ -158,4 +149,12 @@ export PYSPARK_DRIVER_PYTHON=ipython
 # curl
 export PATH="/usr/local/opt/curl/bin:$PATH"
 
+# rust
+export PATH="$HOME/.cargo/bin:$PATH"
+
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
