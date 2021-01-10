@@ -9,13 +9,16 @@ set number
 set relativenumber
 set hidden
 set lazyredraw
+set showcmd
 
 call plug#begin('~/.vim/plugged')
 Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 Plug 'morhetz/gruvbox'
+Plug 'rust-lang/rust.vim'
 Plug 'sheerun/vim-polyglot'
+Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
@@ -37,6 +40,10 @@ map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
+
+map <space> <leader>
+nnoremap <leader>w <C-W>
+set pastetoggle=<leader>p
 
 silent! colorscheme gruvbox
 set background=dark
