@@ -1,0 +1,15 @@
+cask_args appdir: "/Applications"
+
+brew "fd"
+brew "fzf"
+brew "git"
+brew "go"
+brew "htop"
+brew "python3"
+brew "tmux"
+brew "vim"
+brew "zsh"
+
+# cask "google-chrome"
+# cask "java"
+# cask "vlc"
